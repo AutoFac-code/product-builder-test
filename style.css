@@ -1,1 +1,162 @@
-/* Add styles here */
+:root {
+  --bg-color: oklch(0.15 0.05 250);
+  --card-bg: oklch(0.25 0.05 250 / 0.7);
+  --text-primary: oklch(0.98 0.01 250);
+  --text-secondary: oklch(0.8 0.02 250);
+  --accent-color: oklch(0.7 0.2 300);
+  --btn-glow: oklch(0.7 0.2 300 / 0.5);
+  
+  /* Lotto Ball Colors */
+  --ball-1-10: oklch(0.75 0.15 80);  /* Yellow/Orange */
+  --ball-11-20: oklch(0.65 0.18 230); /* Blue */
+  --ball-21-30: oklch(0.6 0.15 20);   /* Red */
+  --ball-31-40: oklch(0.5 0.05 250);  /* Grey */
+  --ball-41-45: oklch(0.7 0.2 140);   /* Green */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Pretendard', sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.background-texture {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 50% 50%, oklch(0.3 0.1 280 / 0.3) 0%, transparent 70%);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.background-texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.container {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  padding: 3rem;
+  border-radius: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border: 1px solid oklch(1 0 0 / 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to bottom right, #fff, oklch(0.8 0.1 250));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+header p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.ball-container {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  min-height: 60px;
+  align-items: center;
+}
+
+.placeholder-text {
+  color: var(--text-secondary);
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.ball {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), inset 0 -4px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(0);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.ball.range-1 { background: var(--ball-1-10); }
+.ball.range-2 { background: var(--ball-11-20); }
+.ball.range-3 { background: var(--ball-21-30); }
+.ball.range-4 { background: var(--ball-31-40); }
+.ball.range-5 { background: var(--ball-41-45); }
+
+.generate-btn {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 0 20px var(--btn-glow);
+}
+
+.generate-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 30px var(--btn-glow);
+}
+
+.generate-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.generate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  to { transform: scale(1); }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 2rem 1.5rem; }
+  .ball { width: 40px; height: 40px; font-size: 1rem; }
+  .ball-container { gap: 0.5rem; }
+}
