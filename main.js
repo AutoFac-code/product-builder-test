@@ -4,10 +4,33 @@
 
 const lottoDisplay = document.getElementById('lotto-display');
 const generateBtn = document.getElementById('generate-btn');
+const themeToggle = document.getElementById('theme-toggle');
 
 /**
- * Generates 6 unique random numbers between 1 and 45
- * @returns {number[]} Sorted array of 6 unique numbers
+ * Theme Management
+ */
+function initTheme() {
+  const savedTheme = localStorage.getItem('lotto-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('lotto-theme', newTheme);
+  updateThemeIcon(newTheme);
+}
+
+function updateThemeIcon(theme) {
+  const icon = themeToggle.querySelector('.icon');
+  icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+}
+
+/**
+ * Lotto Logic
  */
 function generateLottoNumbers() {
   const numbers = new Set();
@@ -18,11 +41,6 @@ function generateLottoNumbers() {
   return Array.from(numbers).sort((a, b) => a - b);
 }
 
-/**
- * Returns the CSS class based on the number range
- * @param {number} num 
- * @returns {string}
- */
 function getRangeClass(num) {
   if (num <= 10) return 'range-1';
   if (num <= 20) return 'range-2';
@@ -31,11 +49,6 @@ function getRangeClass(num) {
   return 'range-5';
 }
 
-/**
- * Creates and appends a lotto ball element
- * @param {number} num 
- * @param {number} delay Delay in ms for the animation
- */
 function createBall(num, delay) {
   const ball = document.createElement('div');
   ball.className = `ball ${getRangeClass(num)}`;
@@ -44,22 +57,16 @@ function createBall(num, delay) {
   lottoDisplay.appendChild(ball);
 }
 
-/**
- * Handles the generation process with UI feedback
- */
 async function handleGenerate() {
-  // Disable button and clear current numbers
   generateBtn.disabled = true;
   lottoDisplay.innerHTML = '';
 
   const numbers = generateLottoNumbers();
 
-  // Create balls with a staggered delay
   numbers.forEach((num, index) => {
     createBall(num, index * 100);
   });
 
-  // Re-enable button after animation finishes
   setTimeout(() => {
     generateBtn.disabled = false;
   }, 600 + (numbers.length * 100));
@@ -67,8 +74,10 @@ async function handleGenerate() {
 
 // Event Listeners
 generateBtn.addEventListener('click', handleGenerate);
+themeToggle.addEventListener('click', toggleTheme);
 
-// Initialize with a subtle entrance for the button
+// Initialize
 window.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   console.log('Lotto Generator Initialized');
 });
