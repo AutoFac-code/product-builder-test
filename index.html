@@ -28,6 +28,17 @@
       <span class="btn-icon">✨</span>
       번호 생성하기
     </button>
+
+    <div id="email-section" class="email-section hidden">
+      <hr class="divider">
+      <p class="section-title">번호를 이메일로 보내시겠습니까?</p>
+      <form id="lotto-form" action="https://formspree.io/f/mqedjpkn" method="POST" class="lotto-form">
+        <input type="email" name="email" placeholder="이메일 주소 입력" required class="input-field">
+        <input type="hidden" name="lotto_numbers" id="hidden-lotto-numbers">
+        <button type="submit" id="submit-btn" class="submit-btn">보내기</button>
+      </form>
+      <div id="form-status" class="form-status"></div>
+    </div>
   </main>
   <script defer type="module" src="/main.js"></script>
 </body>
