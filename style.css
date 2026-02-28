@@ -84,16 +84,12 @@ body {
 }
 
 .comments-section {
-  background: var(--card-bg);
-  backdrop-filter: blur(20px);
-  padding: 2rem;
-  border-radius: 2rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--border-color);
-  max-width: 600px;
-  width: 100%;
+  margin-top: 2rem;
   text-align: left;
-  animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+}
+
+#disqus_thread {
+  min-height: 300px;
 }
 
 .theme-toggle {
