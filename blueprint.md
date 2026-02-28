@@ -21,7 +21,7 @@ A modern, web-based Lotto Number Generator that provides a visually engaging exp
 - **Persistence**: Remembers user theme preference using `localStorage`.
 
 ## Completed Steps
-1.  **Structure (index.html)**: Added Formspree form and hidden fields. Added Disqus thread section.
-2.  **Aesthetics (style.css)**: Styled form elements and comment section to match glassmorphism theme.
+1.  **Structure (index.html)**: Added Formspree form and hidden fields. Added Disqus thread section outside the main container for persistent visibility.
+2.  **Aesthetics (style.css)**: Styled form elements and comment section with glassmorphism cards. Updated body layout to column-flex for scrolling.
 3.  **Logic (main.js)**: Implemented AJAX form submission and dynamic visibility.
 4.  **Deployment**: Pushed updated version to GitHub.
